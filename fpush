@@ -1,0 +1,11 @@
+#!/bin/bash
+
+git add .
+if [ -z "$1" ]
+then
+    git commit -m "[add]"
+    git push
+else
+    git commit -m "$1"
+    git push
+fi
