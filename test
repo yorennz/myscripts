@@ -8,10 +8,9 @@ then
     git push
 elif [ $# -gt 1 ]
 then
-    echo "caca"
-    for i in {1..$#}
+    for ((i = 1; i < $#; ++i))
     do
-        echo "$i"
+        git add "$i"
     done
     git commit -m "${!#}"
     git push
