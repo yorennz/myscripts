@@ -1,21 +1,26 @@
 #!/bin/bash
 
-if [ $# -gt 0 ]
-then
+git_add_arg()
+{
     for ((i = 1; i <= $#; ++i))
     do
         git add "${!i}"
     done
-    echo -n "Commit message: "
-    read commit_message
+}
+
+git_commit()
+{
+    read -p 'Commit message: ' commit_message
     if ((${#commit_message} == 0))
     then
         git commit -m "[fix] coding style"
     else
         git commit -m "$commit_message"
     fi
-    git push
-else
+}
+
+git_add_all()
+{
     end=0
     while((end == 0))
     do
@@ -24,13 +29,7 @@ else
         if ((${#answer} == 0)) || [ "$answer" = "y" ]
         then
             git add .
-            read -p 'Commit message: ' commit_message
-            if ((${#commit_message} == 0))
-            then
-                git commit -m "[fix] coding style"
-            else
-                git commit -m "$commit_message"
-            fi
+            git_commit
             git push
             end=1
         elif [ "$answer" = "n" ]
@@ -38,4 +37,18 @@ else
             end=1
         fi
     done
-fi
+}
+
+push()
+{
+    if [ $# -gt 0 ]
+    then
+        git_add_arg "$@"
+        git_commit
+        git push
+    else
+        git_add_all
+    fi
+}
+
+push
