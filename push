@@ -51,4 +51,4 @@ push()
     fi
 }
 
-push
+push "$@"
