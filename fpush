@@ -1,11 +1,20 @@
 #!/bin/bash
 
-git add .
-if [ -z "$1" ]
+if [ $# -eq 1 ]
 then
-    git commit -m "[add]"
+    git add .
+    git commit -m "$1"
+    git push
+elif [ $# -gt 1 ]
+then
+    for ((i = 1; i < $#; ++i))
+    do
+        git add "${!i}"
+    done
+    git commit -m "${!#}"
     git push
 else
-    git commit -m "$1"
+    git add .
+    git commit -m "[add]"
     git push
 fi
