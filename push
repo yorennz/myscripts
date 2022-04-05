@@ -1,20 +1,40 @@
 #!/bin/bash
 
-if [ $# -eq 1 ]
+if [ $# -gt 0 ]
 then
-    git add .
-    git commit -m "$1"
-    git push
-elif [ $# -gt 1 ]
-then
-    for ((i = 1; i < $#; ++i))
+    for ((i = 1; i <= $#; ++i))
     do
         git add "${!i}"
     done
-    git commit -m "${!#}"
+    echo -n "Commit message: "
+    read commit_message
+    if [ "$commit_message" = ""]
+    then
+        git commit -m "[fix] coding style"
+    else
+        git commit -m "$commit_message"
+    fi
     git push
 else
-    git add .
-    git commit -m "[add]"
-    git push
+    end=0
+    while((end == 0))
+    do
+        echo "Are you sure you want push everything ? (y/n)"
+        read answer
+        if [ "$answer" = "y" ]
+        then
+            git add .
+            read -p 'Commit message: ' commit_message
+            if [ "$commit_message" = ""]
+            then
+                git commit -m "[fix] coding style"
+            else
+                git commit -m "$commit_message"
+            fi
+            git push
+        elif [ "$answer" = "n" ]
+        then
+            end=1
+        fi
+    done
 fi
