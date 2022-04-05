@@ -1,7 +1,5 @@
 #!/bin/bash
 
-read var
-echo "${#var}"
 if [ $# -gt 0 ]
 then
     for ((i = 1; i <= $#; ++i))
@@ -27,7 +25,7 @@ else
         then
             git add .
             read -p 'Commit message: ' commit_message
-            if [ ${#commit_message} = 0]
+            if ((${#commit_message} == 0))
             then
                 git commit -m "[fix] coding style"
             else
