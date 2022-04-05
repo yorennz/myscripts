@@ -32,6 +32,7 @@ else
                 git commit -m "$commit_message"
             fi
             git push
+            end=1
         elif [ "$answer" = "n" ]
         then
             end=1
