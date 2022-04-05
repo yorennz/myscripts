@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "${!#}"
+if [ $# -eq 1 ]
+then
+    git add .
+    git commit -m "$1"
+    git push
+elif [ $# -gt 1 ]
+then
+    echo "caca"
+    for i in {1..$#}
+    do
+        echo "$i"
+    done
+    git commit -m "${!#}"
+    git push
+else
+    git add .
+    git commit -m "[add]"
+    git push
+fi
