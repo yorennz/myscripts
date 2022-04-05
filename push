@@ -21,7 +21,7 @@ else
     do
         echo "Are you sure you want push everything ? (y/n)"
         read answer
-        if [ "$answer" = "y" ]
+        if ((${#answer} == 0)) || [ "$answer" = "y" ]
         then
             git add .
             read -p 'Commit message: ' commit_message
