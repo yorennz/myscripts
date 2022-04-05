@@ -1,14 +1,15 @@
 #!/bin/bash
 
-git_add_arg()
+function git_add_arg()
 {
     for ((i = 1; i <= $#; ++i))
     do
         git add "${!i}"
     done
+    return 0
 }
 
-git_commit()
+function git_commit()
 {
     read -p 'Commit message: ' commit_message
     if ((${#commit_message} == 0))
@@ -19,7 +20,7 @@ git_commit()
     fi
 }
 
-git_add_all()
+function git_add_all()
 {
     end=0
     while((end == 0))
@@ -39,7 +40,7 @@ git_add_all()
     done
 }
 
-push()
+function push()
 {
     if [ $# -gt 0 ]
     then
