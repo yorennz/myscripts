@@ -68,6 +68,7 @@ function push()
     else
         git_add_all
     fi
+    echo -e "\E[33mSuccesfully pushed\E[0m"
 }
 
 push "$@"
