@@ -1,20 +1,10 @@
 #!/bin/bash
 
-function arg_checking()
-{
-    if [ -d "$1" ] | [ -f "$1" ]
-    then
-        return 0
-    else
-        return 1
-    fi
-}
-
 function git_add_arg()
 {
     for ((i = 1; i <= $#; ++i))
     do
-        if [ -d "$1" ] | [ -f "$1" ]
+        if [ -d "${!i}" ] | [ -f "${!i}" ]
         then
             git add "${!i}"
             echo -e "\E[32mAdded \E[0m'${!i}'"
