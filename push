@@ -1,11 +1,28 @@
 #!/bin/bash
 
+function arg_checking()
+{
+    if [ -d "$1" ] | [ -f "$1" ]
+    then
+        return 0
+    else
+        return 1
+    fi
+}
+
 function git_add_arg()
 {
     for ((i = 1; i <= $#; ++i))
     do
-        git add "${!i}"
+        if [ -d "$1" ] | [ -f "$1" ]
+        then
+            git add "${!i}"
+            echo -e "\E[32mAdded \E[0m'${!i}'"
+        else
+            echo -e "\E[31mCould not find \E[0m'${!i}'"
+        fi
     done
+    echo
     return 0
 }
 
@@ -25,7 +42,7 @@ function git_add_all()
     end=0
     while((end == 0))
     do
-        echo "Are you sure you want push everything ? (y/n)"
+        echo -e "\E[31mAre you sure you want to push everything ? \E[0m(y/n)"
         read answer
         if ((${#answer} == 0)) || [ "$answer" = "y" ]
         then
