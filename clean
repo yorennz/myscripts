@@ -1,3 +1,4 @@
 #!/bin/bash
 
-rm -rf *~ *.o *#* *.gcda *.gcdo *.vgcore
+find . -type f \( -name "*.o" -or -name "*#*" -or -name "*~" \
+     -or -name "*.gcno" -or -name "*.gcda" \) -delete
